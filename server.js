@@ -16,6 +16,10 @@ const data = {
     warriors: [
         { id: '001', name: 'Jaime' },
         { id: '002', name: 'Joriah' },
+    ],
+    horsemen: [
+        { id: '001', name: 'Kunle' },
+        { id: '002', name: 'Justice' }
     ]
 }
 
@@ -33,13 +37,33 @@ type Warrior {
     name: String!
 }
 
+type Horsemen {
+    id: ID!
+    name: String!
+}
+
 type Query {
     warriors: [Warrior]
+    horsemen(num: Int!): [Horsemen]
 }
 `
+/**
+ * Resolvers object that contains logic that generates the response for each field.
+ * 
+ * @remarks
+ * Very much incomplete, just trying to get things working at this point.
+ */
 const resolvers = {
     Query: {
         warriors: (obj, args, context, info) => context.warriors,
+        horsemen: (obj, args, context, info) => {
+            if (args['num']) {
+                context.horsemen.forEach((man) => {
+                    man.id = args['num'];
+                })
+                return context.horsemen
+            }
+        }
     },
 }
 
