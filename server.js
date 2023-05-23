@@ -22,7 +22,8 @@ const data = {
         { id: '002', name: 'Justice' }
     ],
     pikemen: [
-        { __typename: 'Pikeman', id: '002', name: 'Brittany' }
+        { __typename: 'Pikeman', id: '002', name: 'Brittany' },
+        { __typename: 'Pikeman', id: '005', name: 'Justice' }
     ]
 }
 
@@ -53,7 +54,7 @@ type Pikeman {
 type Query {
     warriors: [Warrior]
     horsemen(num: Int!): [Horsemen]
-    pikemen: [UnionType]
+    pikemen(type: String): UnionType
 }
 
 union UnionType = Horsemen | Pikeman | Warrior
@@ -76,6 +77,18 @@ const resolvers = {
             }
         },
         pikemen: (obj, args, context, info) => {
+            if(args['type']) {
+                switch(args['type']) {
+                    case 'sister':
+                        return context.pikemen[0]
+                        break;
+                    case 'brother':
+                        return context.pikemen[1]
+                        break;
+                    default:
+                        return context.pikemen[0]
+                }
+            }
             return context.pikemen
         }
     },
