@@ -20,6 +20,9 @@ const data = {
     horsemen: [
         { id: '001', name: 'Kunle' },
         { id: '002', name: 'Justice' }
+    ],
+    pikemen: [
+        { __typename: 'Pikeman', id: '002', name: 'Brittany' }
     ]
 }
 
@@ -42,10 +45,18 @@ type Horsemen {
     name: String!
 }
 
+type Pikeman {
+    id: ID!
+    name: String!
+}
+
 type Query {
     warriors: [Warrior]
     horsemen(num: Int!): [Horsemen]
+    pikemen: [UnionType]
 }
+
+union UnionType = Horsemen | Pikeman | Warrior
 `
 /**
  * Resolvers object that contains logic that generates the response for each field.
@@ -63,6 +74,9 @@ const resolvers = {
                 })
                 return context.horsemen
             }
+        },
+        pikemen: (obj, args, context, info) => {
+            return context.pikemen
         }
     },
 }

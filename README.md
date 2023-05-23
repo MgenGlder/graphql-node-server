@@ -14,3 +14,21 @@ To kill the port when the terminal is no longer accessible:
 
 
 ![screenGrab](./screenGrab.png)
+
+## Example Query
+`query{
+  warriors {
+    name
+    id
+  }
+  horsemen(num: 2) {
+    name
+    id
+  }
+  pikemen {
+  	... on Pikeman {
+    	name
+      id
+  	}
+  }
+}`
