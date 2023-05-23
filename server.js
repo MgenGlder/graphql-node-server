@@ -24,7 +24,29 @@ const data = {
     pikemen: [
         { __typename: 'Pikeman', id: '002', name: 'Brittany' },
         { __typename: 'Pikeman', id: '005', name: 'Justice' }
-    ]
+    ],
+    specialPerson: { 
+            id: '1',
+            nickname: 'Chino', 
+            governmentName: 'Chinonyeleleumlem Ekwueme',
+            height: "4'11",
+            age: 13,
+            favoriteColor: 'purple',
+            favoriteTvShow: 'Misfits',
+            nationality: {
+                born: 'America',
+                ethnicity: 'Nigerian'
+            },
+            hobbies: [
+                'dance',
+                'draw',
+                'cook',
+                'guitar',
+                'jokes',
+                'learn about systemic oppression of minoritized populations'
+            ],
+            location: 'Ann Arbor'
+    }
 }
 
 app.get('/', (request, response) => {
@@ -51,10 +73,29 @@ type Pikeman {
     name: String!
 }
 
+type Nationality {
+    born: String
+    ethnicity: String
+}
+
+type SpecialPerson {
+    id: String
+    nickname: String
+    governmentName: String
+    height: String
+    age: Int
+    favoriteColor: String
+    favoriteTvShow: String
+    nationality: Nationality
+    hobbies: [ String ]
+    location: String
+}
+
 type Query {
     warriors: [Warrior]
     horsemen(num: Int!): [Horsemen]
     pikemen(type: String): UnionType
+    special: SpecialPerson
 }
 
 union UnionType = Horsemen | Pikeman | Warrior
@@ -90,6 +131,9 @@ const resolvers = {
                 }
             }
             return context.pikemen
+        },
+        special: (obj, args, context, info) => {
+            return context.specialPerson;
         }
     },
 }
