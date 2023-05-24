@@ -109,10 +109,8 @@ union UnionType = Horsemen | Pikeman | Warrior
 const resolvers = {
     Query: {
         warriors: (obj, args, context, info) => context.warriors,
-        horsemen: (obj, args, context, info) => {
-            const {num} = args;
-            const {horsemen} = context;
-            if (num) {
+        horsemen: (obj, {num}, {horsemen}, info) => {
+            if(num) {
                 horsemen.forEach((man) => {
                     man.id = num;
                 });
