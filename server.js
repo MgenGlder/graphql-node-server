@@ -25,7 +25,7 @@ const data = {
         { __typename: 'Pikeman', id: '002', name: 'Brittany' },
         { __typename: 'Pikeman', id: '005', name: 'Justice' }
     ],
-    specialPerson: { 
+    specialPerson: {
             id: '1',
             nickname: 'Chino', 
             governmentName: 'Chinonyeleleumlem Ekwueme',
@@ -110,30 +110,33 @@ const resolvers = {
     Query: {
         warriors: (obj, args, context, info) => context.warriors,
         horsemen: (obj, args, context, info) => {
-            if (args['num']) {
-                context.horsemen.forEach((man) => {
-                    man.id = args['num'];
-                })
-                return context.horsemen
+            const {num} = args;
+            const {horsemen} = context;
+            if (num) {
+                horsemen.forEach((man) => {
+                    man.id = num;
+                });
+                return horsemen
             }
         },
         pikemen: (obj, args, context, info) => {
-            if(args['type']) {
-                switch(args['type']) {
+            const {pikemen} = context;
+            const [sister, brother] = pikemen;
+            const {type} = args;
+            if(type) {
+                switch(type) {
                     case 'sister':
-                        return context.pikemen[0]
-                        break;
+                        return sister;
                     case 'brother':
-                        return context.pikemen[1]
-                        break;
+                        return brother;
                     default:
-                        return context.pikemen[0]
+                        return sister;
                 }
             }
-            return context.pikemen
+            return pikemen;
         },
-        special: (obj, args, context, info) => {
-            return context.specialPerson;
+        special: (obj, args, {specialPerson}, info) => {
+            return specialPerson;
         }
     },
 }
