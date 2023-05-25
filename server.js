@@ -6,7 +6,6 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 // Using type: module in package.json allows for the use of 
 // ESModules 'import' instead of CommonJS require
 const app = express();
-const port = 4000;
 
 const PIKEMEN_TYPES = {
     SISTER: 'sister',
@@ -58,7 +57,7 @@ app.get('/', (request, response) => {
     response.send('Hello, GraphQL!');
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log(`Running a server at http://localhost:${port}`);
 });
 
