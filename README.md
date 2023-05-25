@@ -24,6 +24,7 @@ To kill the port when the terminal is no longer accessible:
 - `gcloud app deploy`
 
 
+## GraphiQL Screengrab Example
 ![screenGrab](./screenGrab.png)
 
 ## Example Query
