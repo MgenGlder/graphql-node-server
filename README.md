@@ -25,7 +25,7 @@ To kill the port when the terminal is no longer accessible:
 
 
 ## GraphiQL Screengrab Example
-![screenGrab](./screenGrab.png)
+- [![screenGrab](./screenGrab.png)
 
 ## Example Query
 `query{
