@@ -20,6 +20,8 @@ To kill the port when the terminal is no longer accessible:
 - `npm install`
 - `node server.js`
 
+## Deploying
+- `gcloud app deploy`
 
 
 ![screenGrab](./screenGrab.png)
