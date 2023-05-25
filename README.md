@@ -1,5 +1,5 @@
 # Example GraphQL Server in Node.JS
-A quick graphql implementation
+A quick graphql implementation™
 
 _Note I did not make this_
 
