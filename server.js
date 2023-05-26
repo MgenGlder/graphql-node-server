@@ -8,8 +8,8 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 const app = express();
 
 const PIKEMEN_TYPES = {
-    SISTER: 'sister',
-    BROTHER: 'brother'
+    sister: 'sister',
+    brother: 'brother'
 }
 
 app.use(cors());
@@ -127,9 +127,9 @@ const resolvers = {
             const {type} = args;
             if(type) {
                 switch(type) {
-                    case PIKEMEN_TYPES.SISTER:
+                    case PIKEMEN_TYPES.sister:
                         return sister;
-                    case PIKEMEN_TYPES.BROTHER:
+                    case PIKEMEN_TYPES.brother:
                         return brother;
                     default:
                         return sister;
