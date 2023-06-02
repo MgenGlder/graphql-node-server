@@ -62,26 +62,41 @@ app.listen(process.env.PORT || 8080, () => {
 });
 
 const typeDefs = `
+"""
+Warriors Definition
+"""
 type Warrior {
     id: ID!
     name: String!
 }
 
+"""
+Horsemen Definition
+"""
 type Horsemen {
     id: ID!
     name: String!
 }
 
+"""
+Pikemen Definition
+"""
 type Pikeman {
     id: ID!
     name: String!
 }
 
+"""
+Nationality Definition
+"""
 type Nationality {
     born: String
     ethnicity: String
 }
 
+"""
+SpecialPerson Definition
+"""
 type SpecialPerson {
     id: String
     nickname: String
@@ -95,6 +110,9 @@ type SpecialPerson {
     location: String
 }
 
+"""
+Query Definition
+"""
 type Query {
     warriors: [Warrior]
     horsemen(num: Int!): [Horsemen]
@@ -102,6 +120,9 @@ type Query {
     special: SpecialPerson
 }
 
+"""
+Union type Definition
+"""
 union UnionType = Horsemen | Pikeman | Warrior
 `
 /**
