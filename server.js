@@ -205,3 +205,5 @@ app.use(
         graphql: true
     })
 )
+
+// TODO: In the future, try implementing custom Scalars, Mutations, and other GraphQL types
