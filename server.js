@@ -187,7 +187,7 @@ const hasRole = (role) => next => (root, args, context, info) => {
 }
 
 const resolversComposition = {
-    'Query.warriors': [isAuthenticated(), hasRole('EDITOR')]
+    'Query.*': [isAuthenticated(), hasRole('EDITOR')]
 }
 
 const composeResolvers = composeResolvers(resolvers, resolversComposition);
