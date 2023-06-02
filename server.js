@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+const { composeResolvers } = require('@graphql-tools/resolvers-composition')
 
 // Using type: module in package.json allows for the use of 
 // ESModules 'import' instead of CommonJS require
@@ -132,6 +133,9 @@ union UnionType = Horsemen | Pikeman | Warrior
  * Very much incomplete, just trying to get things working at this point.
  */
 const resolvers = {
+    Mutation: {
+        changeWarriors()
+    },
     Query: {
         warriors: (obj, args, context, info) => context.warriors,
         horsemen: (obj, {num}, {horsemen}, info) => {
@@ -164,9 +168,33 @@ const resolvers = {
     },
 }
 
+const contest = {};
+
+const isAuthenticated = () => next => (root, args, context, info) => {
+    if (!context.currentUser) {
+      throw new Error('You are not authenticated!')
+    }
+   
+    return next(root, args, context, info)
+};
+
+const hasRole = (role) => next => (root, args, context, info) => {
+    if (!context.currentUser.roles?.includes(role)) {
+      throw new Error('You are not authorized!')
+    }
+   
+    return next(root, args, context, info)
+}
+
+const resolversComposition = {
+    'Query.warriors': [isAuthenticated(), hasRole('EDITOR')]
+}
+
+const composeResolvers = composeResolvers(resolvers, resolversComposition);
+
 const executableSchema = makeExecutableSchema({
     typeDefs,
-    resolvers
+    composeResolvers
 });
 
 app.use(
